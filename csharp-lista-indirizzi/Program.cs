@@ -11,35 +11,34 @@ string[] linee;
 List<Indirizzo> indirizzi = new();
 
 using (StreamReader fileIndirizzi = File.OpenText(path)) {
-    contenuto = fileIndirizzi.ReadToEnd();
+        contenuto = fileIndirizzi.ReadToEnd();
 }
 
 linee = contenuto.Split('\n');
 
 for (int i = 1; i < linee.Length; i++) {
-    string linea = linee[i];
-    string[] datiIndirizzo = LineaProcessata(linea);
+        string[] linea = LineaProcessata(linee[i]);
 
-    if (DatiValidi(datiIndirizzo)) {
-        Indirizzo nuovoIndirizzo = new(datiIndirizzo);
-        indirizzi.Add(nuovoIndirizzo);
-    }
+        if (LineaValida(linea)) {
+                Indirizzo nuovoIndirizzo = new Indirizzo(linea);
+                indirizzi.Add(nuovoIndirizzo);
+        }
 }
 
 foreach (Indirizzo indirizzo in indirizzi) {
-    Console.WriteLine($"{indirizzo}\n");
+        Console.WriteLine($"{indirizzo}\n");
 }
 
 
 // -------------------------------------------------------------------
 
-static bool DatiValidi(string[] datiIndirizzo) {
-    return datiIndirizzo.Length == 6 &&
-        !datiIndirizzo.Any(s => string.IsNullOrWhiteSpace(s));
+static bool LineaValida(string[] datiIndirizzo) {
+        return datiIndirizzo.Length == 6
+                && !datiIndirizzo.Any(s => string.IsNullOrWhiteSpace(s));
 }
 
 static string[] LineaProcessata(string linea) {
-    return linea.Split(',')
-                .Select(s => s.Trim())
-                .ToArray();
+        return linea.Split(',')
+                    .Select(s => s.Trim())
+                    .ToArray();
 }
