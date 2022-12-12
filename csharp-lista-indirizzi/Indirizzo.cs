@@ -18,6 +18,8 @@
             ZIP = StringaNonVuota(zip);
         }
 
+        public Indirizzo(string[] datiIndirizzo) : this(datiIndirizzo[0], datiIndirizzo[1], datiIndirizzo[2], datiIndirizzo[3], datiIndirizzo[4], datiIndirizzo[5]) { }
+
         // METODI PUBBLICI
         public override string ToString() {
             return $@"Città: {Citta} ({Provincia})
@@ -28,7 +30,7 @@ Abitante: {Nome} {Cognome}";
 
         // METODI PRIVATI
         protected static string StringaNonVuota(string stringa) {
-            return string.IsNullOrWhiteSpace(stringa) ? stringa : throw new ArgumentNullException(nameof(stringa));
+            return !string.IsNullOrWhiteSpace(stringa) ? stringa : throw new ArgumentNullException(nameof(stringa));
         }
     }
 }
